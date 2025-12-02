@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  APP_ENV=dev
-  API_TITLE=Orders API
+  APP_ENV: dev
+  API_TITLE: Orders API

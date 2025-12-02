@@ -4,36 +4,36 @@ metadata:
   name: orders-api
   labels:
     app: orders-api
-  spec:
-    replicas: 1
-    selector:
-      matchLabels:
-        app: orders-api
-    template:
-      metadata:
-        labels:
-          app: orders-api 
-      spec:
-        containers:
-          - name: orders-api
-            image: orders-api:latest
-            imagePullPolicy: IfNotPresent
-            ports:
-              - containerPort: 5000
-            resources:
-              requests:
-                memory: "128Mi"
-                cpu: "125m"
-              limits:
-                memory: "256Mi"
-                cpu: "250m"
-              livenessProbe:
-                httpGet:
-                - path: /health
-                  port: 5000
-              env:
-                - name:  ENV_VAR
-                  valueFrom:
-                    secretKeyRef:
-                      name:  API-KEY
-                      key:  key
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-api
+  template:
+    metadata:
+      labels:
+        app: orders-api 
+    spec:
+      containers:
+        - name: orders-api
+          image: orders-api:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "125m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+          env:
+            - name:  API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name:  orders-api-secret
+                  key:  API_KEY
