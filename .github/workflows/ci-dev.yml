@@ -53,4 +53,4 @@ jobs:
           with:
             context: .
             push: true
-            tags: gabrielcarl/devops-project:{{ env.$SHORT_SHA }}-dev
+            tags: gabrielcarl/devops-project:${{ env.SHORT_SHA }}-dev
