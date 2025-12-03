@@ -52,5 +52,6 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
+            file: app/Dockerfile
             push: true
             tags: gabrielcarl/devops-project:${{ env.SHORT_SHA }}-dev
