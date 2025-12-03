@@ -49,4 +49,4 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: ${{ secrets.DOCKER_USERNAME }}/devops-project:{{ github.sha }}-dev
+            tags: gabrielcarl/devops-project:{{ github.sha }}-dev
