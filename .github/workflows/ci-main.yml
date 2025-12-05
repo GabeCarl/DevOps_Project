@@ -37,6 +37,10 @@ jobs:
         outputs: #Capture short SHA output
             short-sha: ${{ steps.short-sha.outputs.short-sha }}
         steps:
+
+          - name: Checkout
+            uses: actions/checkout@v4
+            
           - id: short-sha
             run: | 
                 echo "short-sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
@@ -54,7 +58,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Build local image
-              run: docker build -t orders:${{ needs.build-output.outputs.short-sha }}-stag .
+              run: docker build -t orders:${{ needs.build-output.outputs.short-sha }}-stag app/Dockerfile
 
             - name: Run Trivy vulnerability scanner #Trivy configuration
               uses: aquasecurity/trivy-action@0.28.0
