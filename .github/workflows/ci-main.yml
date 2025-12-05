@@ -35,7 +35,7 @@ jobs:
         runs-on: ubuntu-latest
         
         outputs: #Capture short SHA output
-            short-sha: ${{ steps.short-sha.outputs.short-sha }}
+            short-sha: ${{ steps.short-sha.outputs.SHORT_SHA }}
         steps:
 
           - name: Checkout
@@ -46,12 +46,12 @@ jobs:
             run: | 
                 SHA=$(git rev-parse --short HEAD)
                 echo "Intermediate var: $SHA"
-                echo "short-sha=$SHA" >> $GITHUB_OUTPUT
-                echo "final output: $short-sha"
+                echo "SHORT_SHA=$SHA" >> $GITHUB_OUTPUT
+                echo "final output: $SHORT_SHA"
 
             
           - name: View short SHA
-            run: echo "Short SHA is ${{ steps.short-sha.outputs.short-sha }}"
+            run: echo "Short SHA is ${{ steps.short-sha.outputs.SHORT_SHA }}"
 
 
     trivy-scan:
@@ -71,7 +71,7 @@ jobs:
             - name: Run Trivy vulnerability scanner #Trivy configuration
               uses: aquasecurity/trivy-action@0.28.0
               with:
-                image-ref: 'orders:${{ needs.build-output.outputs.short-sha }}-stag'
+                image-ref: 'orders:${{ needs.build-output.outputs.SHORT_SHA }}-stag'
                 format: 'table'
                 exit-code: '1'
                 ignore-unfixed: true
