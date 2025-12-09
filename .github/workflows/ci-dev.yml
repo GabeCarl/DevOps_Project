@@ -90,7 +90,7 @@ jobs:
 
     - name: Change tag in k8s deployment # Use sed to change k8s file
       run: |
-        sed -i "s|image: gabrielcarl/devops-project:-dev|image: gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev|g" k8s/deployment.yaml
+        sed -i "s|image: gabrielcarl/devops-project:-dev|image: gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev|g" k8s/*.yaml
 
     - name: Deploy to kind cluster # Deploy k8s files to kind cluster
       run: |
