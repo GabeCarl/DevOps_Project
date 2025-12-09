@@ -19,7 +19,7 @@ jobs:
       - id: short_sha # Get short SHA of the commit
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
-          echo SHORT_SHA=$SHORT_SHA > $GITHUB_OUTPUT
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_OUTPUT
 
 
   build-and-test:
