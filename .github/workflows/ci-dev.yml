@@ -45,7 +45,7 @@ jobs:
           pytest app/tests/request-test.py
 
   build-and-push-docker:
-    needs: build-and-test
+    needs: [build-and-test, create-short-sha]
     runs-on: ubuntu-latest
 
     steps:
@@ -67,7 +67,7 @@ jobs:
         tags: gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev
 
   local-deployment:
-    needs: build-and-push-docker
+    needs: [build-and-push-docker, create-short-sha]
     runs-on: ubuntu-latest
 
     steps:
