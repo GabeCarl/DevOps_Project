@@ -9,15 +9,18 @@ jobs:
   create-short-sha:
     runs-on: ubuntu-latest
     outputs:
-      SHORT_SHA: ${{ steps.short-sha.outputs.SHORT_SHA }}
+      SHORT_SHA: ${{ steps.short_sha.outputs.SHORT_SHA }}
 
     steps:
       
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - id: short-sha # Get short SHA of the commit
-        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - id: short_sha # Get short SHA of the commit
+        run: |
+          echo SHORT_SHA=$(git rev-parse --short HEAD)
+          echo SHORT_SHA=$SHORT_SHA > $GITHUB_OUTPUT
+
 
   build-and-test:
     runs-on: ubuntu-latest
@@ -64,7 +67,7 @@ jobs:
         context: .
         file: app/Dockerfile
         push: true
-        tags: gabrielcarl/devops-project:${{ needs.create-shor-sha.outputs.SHORT-SHA }}-dev
+        tags: gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev
 
   local-deployment:
     needs: build-and-push-docker
@@ -80,12 +83,12 @@ jobs:
 
     - name: push Docker image to kind cluster # Push Docker image to kind cluster
       run: |
-        docker pull gabrielcarl/devops-project:${{ needs.create-shor-sha.outputs.SHORT-SHA }}-dev
-        kind load docker-image gabrielcarl/devops-project:${{ needs.create-shor-sha.outputs.SHORT-SHA }}-dev
+        docker pull gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev
+        kind load docker-image gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev
 
     - name: Change tag in k8s deployment # Use sed to change k8s file
       run: |
-        sed -i 's/image: gabrielcarl/devops-project:.*-dev/image: gabrielcarl/devops-project:${{ needs.create-shor-sha.outputs.SHORT-SHA }}-dev/g' k8s/deployment.yaml
+        sed -i 's/image: gabrielcarl/devops-project:.*-dev/image: gabrielcarl/devops-project:${{ needs.create-short-sha.outputs.SHORT_SHA }}-dev/g' k8s/deployment.yaml
 
     - name: Deploy to kind cluster # Deploy k8s files to kind cluster
       run: |
