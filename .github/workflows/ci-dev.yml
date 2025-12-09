@@ -72,7 +72,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: engineerd/setup-kind@v0.6.0 # Create a local Kubernetes cluster using kind
+
+    - uses: engineerd/setup-kind@v0.6.2 # Create a local Kubernetes cluster using kind
+    
     - name: Cluster Info
       run: | 
         kind get clusters
