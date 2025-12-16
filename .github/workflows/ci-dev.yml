@@ -93,7 +93,7 @@ jobs:
       run: |
         kubectl apply -f k8s/
         sleep 30s
-        kubectl port-forward svc/devops-project-service 80:80
+        kubectl port-forward svc/orders-api-clusterip 80:80
         kubectl get all
 
     - name: Smoke tests #Run Tests
