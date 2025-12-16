@@ -92,8 +92,9 @@ jobs:
     - name: Deploy to kind cluster # Deploy k8s files to kind cluster
       run: |
         kubectl apply -f k8s/
-        sleep 15s
+        kubectl wait --for=condition=ready pod -l app=orders-api --timeout=30s
         kubectl port-forward svc/orders-api-clusterip 5000:80 &
+        sleep 10
         kubectl get all
 
     - name: Smoke tests #Run Tests
