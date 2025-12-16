@@ -98,6 +98,7 @@ jobs:
         sleep 10
         kubectl get all
         kubectl describe pod -l app=orders-api
+        kubectl logs -l app=orders-api --previous
 
     - name: Smoke tests #Run Tests
       
