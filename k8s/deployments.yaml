@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: orders-api
-          image: orders-api:1.0
+        # The image are change in the ci-dev.yml file using sed command in runtime
+          image: gabrielcarl/devops-project:-dev
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
