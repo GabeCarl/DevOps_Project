@@ -13,6 +13,7 @@ Project for train and learn concepts the DevOps
 - Docker
 - Kubernetes
 - Terraform
+- KinD
 
 ### Start App
 
@@ -28,3 +29,23 @@ Project for train and learn concepts the DevOps
 
 1. Verify API
     - Verify if API is health in (URL/health)
+
+
+### Start App Local
+
+1. Pull Repository
+    - Git pull https://github.com/GabeCarl/DevOps_Project.git
+
+3. Init Kind
+    - kind create cluster
+        - Use --name flag for a context (default is "kind")
+        - For delete cluster use "kind delete cluster"
+    - load image in cluster
+        - *Change the image in "k8s/deployments.yaml" for the local name image*
+        - Use "kubectl apply -f k8s/"
+
+### Test
+
+1. Health Test
+    - URL "localhost:5000/health"
+    
