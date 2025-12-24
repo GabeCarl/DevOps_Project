@@ -33,8 +33,8 @@ Project for train and learn concepts the DevOps
 
 ### Start App Local
 
-1. Pull Repository
-    - Git pull https://github.com/GabeCarl/DevOps_Project.git
+1. Clone Repository
+    - Git clone https://github.com/GabeCarl/DevOps_Project.git
 
 3. Init Kind
     - kind create cluster
